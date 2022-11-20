@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import { Link, Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom'
 import Login from './pages/Login/Login'
-import Layout from './pages/Layout/Layout'
+import Layout from '@/pages/Layout/Layout'
 
 function App() {
   return (

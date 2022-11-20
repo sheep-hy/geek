@@ -19,7 +19,11 @@
     "isolatedModules": true,
     "noEmit": true,
     // "jsx": "react-jsx"
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths":{
+      "@/*":["src/*"] // 让vsCODE能识别@
+    }
   },
   "include": [
     "src"
