@@ -1,4 +1,5 @@
 {
+  "extends": "./path.tsconfig.json",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -18,13 +19,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    // "jsx": "react-jsx",
-    // "baseUrl": "./",
     "jsx": "react",
-    "baseUrl": "./",
-    "paths":{
-      "@/*":["src/*"] // 让vsCODE能识别@
-    }
+    // "baseUrl": "./",
+    // "jsx": "react",
+    // "baseUrl": "./",
+    // "paths":{
+    //   "@/*":["src/*"] // 让vsCODE能识别@
+    // }
   },
   "include": [
     "src"

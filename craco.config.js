@@ -1,9 +1,9 @@
 const path = require('path')
-const pxToViewport = require('postcss-px-to-viewport')
-const vw = pxToViewport({
-    // 视口宽度 一般是375
-    viewportWidth: 375
-})
+// const pxToViewport = require('postcss-px-to-viewport')
+// const vw = pxToViewport({
+//     // 视口宽度 一般是375
+//     viewportWidth: 375
+// })
 module.exports = {
     // webpack 配置
     webpack: {
@@ -16,9 +16,9 @@ module.exports = {
 
         }
     },
-        style: {
-            postcss: {
-                plugins: [vw]
-            }
-        }
+        // style: {
+        //     postcss: {
+        //         plugins: [vw]
+        //     }
+        // }
 }
