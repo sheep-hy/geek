@@ -19,13 +19,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    // "baseUrl": "./",
-    // "jsx": "react",
-    // "baseUrl": "./",
-    // "paths":{
-    //   "@/*":["src/*"] // 让vsCODE能识别@
-    // }
+    "jsx": "react-jsx"
   },
   "include": [
     "src"

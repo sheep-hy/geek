@@ -1,0 +1,14 @@
+@import "~@scss/hairline.scss";
+// @import "@/asset/styles/hairline.scss";
+
+.box1 {
+    margin:10px 0;
+    position: relative;
+    // 添加边框
+    // @include hairline(top, #f0f0f0);
+    @include hairline(bottom,#000);
+    @include hairline-remove(bottom)
+}
+.box {
+    font-size: 40px;
+}
