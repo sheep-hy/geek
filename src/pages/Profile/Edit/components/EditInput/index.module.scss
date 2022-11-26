@@ -1,0 +1,37 @@
+.root {
+  width: 100vw;
+  height: 100%;
+  background-color: #f7f8fa;
+
+  :global {
+    .navbar {
+      background-color: transparent;
+    }
+
+    .commit-btn {
+      color: #fc6627;
+      font-size: 14px;
+    }
+
+    .content-box {
+      padding: 0 16px;
+
+      h3 {
+        padding: 15px 0;
+        font-size: 17px;
+        color: #333;
+      }
+
+      .input-wrap {
+        height: 44px;
+        padding-left: 16px;
+        background-color: #fff;
+
+        input {
+          height: 44px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

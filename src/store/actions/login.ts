@@ -23,6 +23,6 @@ export const getCode = (mobile: string) => {
       url: '/sms/codes/' + mobile,
       method: 'get',
     })
-    // 注意验证码是发送到手机上的，因此，不需要更新redux状态
+    //
   }
 }

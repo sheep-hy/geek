@@ -2,33 +2,32 @@
 // 1. 基地址
 // 2. 请求拦截器
 // 3.响应拦截器
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { getTokenInfo, hasToken } from './storage'
-
-const request = axios.create({
-  baseURL: 'http://geek.itheima.net/v1_0',
+const baseURL = 'http://geek.itheima.net/v1_0/'
+const instance = axios.create({
   timeout: 5000,
+  baseURL,
 })
-// 添加请求拦截器
-request.interceptors.request.use(
-  function (config) {
-    // 在发送请求之前做些什么
-    if (hasToken()) {
-      // if (config.headers) {
-      //   config.headers.Authorzation = 'Bearer' + getTokenInfo().Token
-      // }
-      // 非空断言
-      config.headers!.Authorzation = 'Bearer' + getTokenInfo().Token
+
+// 配置拦截器
+instance.interceptors.request.use(
+  (config) => {
+    // 对config做点什么
+    // 获取token
+    const token = getTokenInfo().token
+    if (token) {
+      config.headers!.Authorization = 'Bearer ' + token
     }
     return config
   },
-  function (error) {
-    // 在请求错误做些什么
+  (error: AxiosError<{ message: string }>) => {
+    // 对错误做点什么
     return Promise.reject(error)
   }
 )
 // 添加响应拦截器
-request.interceptors.response.use(
+instance.interceptors.response.use(
   (response) => {
     // 在响应数据之前做些什么
     return response
@@ -38,4 +37,4 @@ request.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-export default request
+export default instance

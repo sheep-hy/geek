@@ -1,11 +1,5 @@
 // import NavBar from '@/components/NavBar'
 import styles from './index.module.scss'
-// import Input from '@/components/Input'
-// import { useFormik } from 'formik'
-// import * as Yup from 'yup'
-// import classNames from 'classnames'
-// import { useDispatch } from 'react-redux'
-// import { login, sendCode } from '@/store/actions/login'
 import {
   Button,
   NavBar,
