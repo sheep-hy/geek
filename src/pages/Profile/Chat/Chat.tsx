@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { getTokenInfo } from '@/utils/storage'
-import {io ,Socket}from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 import React from 'react'
 // import { Socket } from 'dgram'
-
+// let client: any = null
 const Chat = () => {
   const user = useSelector((state: RootState) => state.profile.user)
   const [text, setText] = useState('')
@@ -21,26 +21,39 @@ const Chat = () => {
   ])
   // useRef 不止可以获取当前元素的dom 还可以保存当前元素的状态(因为页面变化时 函数组件是一直在触发的状态 )
   // 创建用来存储 socket 对象的ref
-  const clientRef = useRef<Socket>(null)
+  const clientRef = useRef<Socket>()
   useEffect(() => {
+    // 建立与服务器的关联
     const client = io('http://geek.itheima.net', {
       query: {
         token: getTokenInfo().token,
       },
       transports: ['websocket'],
     })
-    console.log(clientRef,  1111)
-    clientRef.current
+    clientRef.current = client
     // 当服务器建立连接成功这个事件就会触发
-    // client.on('connect', () => {
-    //   console.log('websocket连接成功')
-    // })
+    client.on('connect', () => {
+      console.log('websocket连接成功')
+    })
+    client.on('message', (obj) => {
+      console.log('服务器的数据',obj)
+      setList((list)=>[...list, { type: 'robot', text: obj.msg }])
+    })
   }, [])
   // 给机器人发送消息
   const sendMessage = () => {
-    // 主动给服务器发消息
-    // client.emit()
+    // 3. 给小智同学发送消息
+    clientRef.current?.emit('message', { msg: text, timestamp: Date.now() })
+    setList([...list, { type: 'user', text: text }])
+    setText('')
   }
+  const refList = useRef<HTMLDivElement>(null)
+  useEffect(()=>{
+    // dom操作
+    if(refList.current){
+      refList.current.scrollTop= refList.current?.scrollHeight
+    }
+  },[list])
   return (
     <div className={styles.root}>
       {/* 顶部导航栏 */}
@@ -48,14 +61,14 @@ const Chat = () => {
         小智同学
       </NavBar>
       {/* 聊天记录列表 */}
-      <div className="chat-list">
+      <div className="chat-list" ref={refList}>
         {list.map((it, index) => {
           if (it.type === 'robot') {
             return (
               // {/* 机器人的消息 */}
               <div key={index} className="chat-item">
                 <Icon type="iconbtn_xiaozhitongxue"></Icon>
-                <div className="message"> 你好！</div>
+                <div className="message"> {it.text}</div>
               </div>
             )
           } else {
@@ -68,7 +81,7 @@ const Chat = () => {
                     'http://toutiao.itheima.net/images/user_head.jpg'
                   }
                 ></img>
-                <div className="message"> 你好?</div>
+                <div className="message"> {it.text}</div>
               </div>
             )
           }

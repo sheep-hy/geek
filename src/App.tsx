@@ -13,7 +13,7 @@ import ProfileEdit from '@/pages/Profile/Edit'
 import { hasToken } from './utils/storage'
 import PrivateRoute from '@/components/PrivateRoute'
 import history from '@/utils/history'
-import Chat from './pages/Profile/Chat/Chat'
+import Chat from './pages/Profile/chat/Chat'
 
 function App() {
   return (
