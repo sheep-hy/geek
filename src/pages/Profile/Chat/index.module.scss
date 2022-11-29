@@ -66,28 +66,30 @@
       bottom: 0;
       height: 50px;
       padding: 7px 16px;
-
-      .input {
+      box-sizing: border-box;
+      .adm-list-item-content-main{
+        padding:0
+      }
+      .adm-input-element {
         height: 36px;
         min-height: 0;
         padding-left: 27px;
         border-radius: 18px;
-        background-color: #f7f8fa;
+        background-color: #ecedef;
         font-size: 14px;
+        border: 1px solid red;
         &::placeholder {
           font-size: 14px;
         }
       }
-      .no-border {
-        @include hairline-remove(bottom);
-      }
-
+      
       .icon {
         position: absolute;
         top: 50%;
         margin-top: -6.5px;
-        margin-left: 10px;
+        margin-left: 20px;
         font-size: 13px;
+        // color: pink;
       }
     }
   }
