@@ -50,7 +50,7 @@ const Profile = () => {
         <div className="read-info">
           <Icon type="iconbtn_readingtime" />
           今日阅读
-          <span>{user.intro}</span>
+          <span>10</span>
           分钟
         </div>
 
@@ -103,7 +103,7 @@ const Profile = () => {
             <Icon type="iconbtn_feedback" />
             <div>用户反馈</div>
           </div>
-          <div className="service-item">
+          <div className="service-item" onClick={()=>{history.push('/chat')}}>
             <Icon type="iconbtn_xiaozhitongxue" />
             <div>小智同学</div>
           </div>

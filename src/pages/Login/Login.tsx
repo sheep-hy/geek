@@ -19,6 +19,8 @@ import { AxiosError } from 'axios'
 export default function Login() {
   const dispatch = useDispatch<any>()
   const history = useHistory()
+  // 注意：state可能是不存在的，所以类型中要明确包含不存在的情况 即 underfined
+  const location = useLocation<{ from: string }>()
   // 通过 useForm 来拿到 Form 的实例对象
   const [form] = Form.useForm()
   // 创建手机号文本框的ref对象
@@ -34,7 +36,11 @@ export default function Login() {
         content: '登录成功',
         duration: 600,
         afterClose: () => {
-          history.push('./home')
+          if (location.state) {
+            history.push(location.state.from)
+          } else {
+            history.push('./home')
+          }
         },
       })
     } catch (err) {

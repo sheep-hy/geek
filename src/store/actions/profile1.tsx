@@ -6,6 +6,7 @@ export function getUserInfo(): RootThunkAction {
   return async (dispatch) => {
     // 后端返回的类型 <ApiRsponse<Token>
     const res = await request.get<ApiRsponse<user>>('/user')
+    // if (!res) return
     console.log(res, 'user')
     dispatch({
       type: 'profile/user',
@@ -27,13 +28,13 @@ export function editUserInfo(): RootThunkAction {
   }
 }
 // 名称和简介修改
-export function getUserProfile(type:string,value:string): RootThunkAction {
+export function getUserProfile(type: string, value: string): RootThunkAction {
   return async (dispatch) => {
     // 后端返回的类型 <ApiRsponse<Token>
-    const res = await request.patch<ApiRsponse<editUser>>('/user/profile',{
-      [type]:value
+    const res = await request.patch<ApiRsponse<editUser>>('/user/profile', {
+      [type]: value,
     })
-  // 修改成功 直接调个人信息接口
-  dispatch(editUserInfo())
+    // 修改成功 直接调个人信息接口
+    dispatch(editUserInfo())
   }
 }

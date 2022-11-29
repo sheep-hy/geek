@@ -1,18 +1,39 @@
 import useInitialState from '@/Hooks/useInitialState'
+import { logout } from '@/store/actions/login'
 import { editUserInfo, getUserProfile } from '@/store/actions/profile1'
-import { Button, DatePicker, List, NavBar, Picker, Popup, Toast } from 'antd-mobile'
+import {
+  Button,
+  DatePicker,
+  Dialog,
+  List,
+  NavBar,
+  Picker,
+  Popup,
+  Toast,
+} from 'antd-mobile'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import EditInput from './components/EditInput/EditInput'
+import { useHistory } from 'react-router-dom'
+import EditInput from './components/input/EditInput'
 import styles from './index.module.scss'
 const Item = List.Item
 type inputTypes = {
   type: '' | 'name' | 'intro'
   visible: boolean
 }
+function formatDate(value: Date) {
+  const year = value.getFullYear()
+  let mouth: number | string = value.getMonth() + 1
+  mouth = mouth > 9 ? mouth : `0${mouth}`
+  let day: number | string = value.getDate()
+  day = day > 9 ? day : `0${day}`
+  const d = [year, mouth, day].join('-')
+  return d
+}
 export default function Edit() {
+  const history = useHistory()
   const dispatch = useDispatch<any>()
-  const [visible, setVisible] = useState(false)
+  const [visibleBirthday, setVisible] = useState(false)
   const [value, setValue] = useState<(string | null)[]>(['M'])
   const [inputPopup, setInputPopup] = useState<inputTypes>({
     type: '',
@@ -37,16 +58,45 @@ export default function Edit() {
       Toast.show({ content: '修改失败' })
     }
   }
+  // 修改生日
+  const onUpdateBirthday = async (value: Date) => {
+    const d = formatDate(value)
+    console.log(d, 'date')
+    // 1.掉接口
+    // // 2.关闭弹框
+    try {
+      await dispatch(getUserProfile('birthday', d))
+      Toast.show({ content: '修改成功' })
+      setVisible(false)
+    } catch (err) {
+      Toast.show({ content: '修改失败' })
+    }
+  }
   // 退出登录
-  const onLogout = () => {}
+  const onLogout = () => {
+    Dialog.confirm({
+      content: '确认退出吗',
+      onConfirm: async () => {
+        // await sleep(3000)
+        dispatch(logout())
+        Toast.show({
+          icon: 'success',
+          content: '退出成功',
+          position: 'bottom',
+        })
+        history.push('/login')
+      },
+    })
+  }
   return (
     <div className={styles.root}>
       <div className="content">
         {/* 标题 */}
         <NavBar
+        onBack={()=>history.go(-1)}
           style={
             {
-              // '--border-bottom': '1px solid red',
+              '--border-bottom': '1px solid red',
             }
           }
         >
@@ -99,18 +149,24 @@ export default function Edit() {
             <Item arrow extra={userEdit.gender === 0 ? '男' : '女'}>
               性别
             </Item>
-            <Item arrow extra={userEdit.birthday}>
+            <Item
+              arrow
+              extra={userEdit.birthday}
+              onClick={() => {
+                setVisible(true)
+              }}
+            >
               生日
             </Item>
           </List>
 
-          <DatePicker
+          {/* <DatePicker
             visible={false}
             value={new Date()}
             title="选择年月日"
             min={new Date(1900, 0, 1, 0, 0, 0)}
             max={new Date()}
-          />
+          /> */}
         </div>
 
         <div className="logout">
@@ -131,16 +187,17 @@ export default function Edit() {
         />
       </Popup>
       {/* // 日期选择器 */}
-      {/* <Picker
-        visible={true}
+      <DatePicker
+        visible={visibleBirthday}
         onClose={() => {
           setVisible(false)
         }}
-        value={value}
-        onConfirm={(v) => {
-          setValue(v)
-        }}
-      /> */}
+        title="选择年月日"
+        value={new Date(userEdit.birthday)}
+        max={new Date()}
+        min={new Date('1900-01-01')}
+        onConfirm={onUpdateBirthday}
+      />
     </div>
   )
 }

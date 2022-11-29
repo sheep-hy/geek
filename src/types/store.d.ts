@@ -9,7 +9,7 @@ export type RootState = ReturnType<typeof store.getState>
 // redux dispatch的类型
 // export type RootDispatch = typeof store.dispatch;
 
-export type LoginAction = { type: 'login/token'; payload: Token }
+export type LoginAction = { type: 'login/token'; payload: Token }|{ type: 'login/quit'}
 export type ProfileAction = { type: 'profile/user'; payload: user }
   | { type: 'profile/editUser'; payload: editUser }
 // export type RootState = ReturnType<typeof store.getState>
