@@ -2,8 +2,8 @@ import { Token } from '@/types/data'
 
 // 用户 Token 的本地缓存键名
 const TOKEN_KEY = 'geek-hy'
-const CHANNEL_KEY = 'geek-itcast-21-channels'
-const SEARCH_HIS_KEY = 'geek-itast-21-search'
+const CHANNEL_KEY = 'geek-itcast-hy-channels'
+const SEARCH_HIS_KEY = 'geek-itast-hy-search'
 
 type Channels = {
   id: number
@@ -45,8 +45,8 @@ export const setLocalChannels = (channels: Channels) => {
  * 获取本地的频道数据，，，，，，，如果没有数据，不要默认为空数组
  * @returns
  */
-export const getLocalChannels = (): Channels => {
-  return JSON.parse(localStorage.getItem(CHANNEL_KEY)!)
+export const getLocalChannels = () => {
+  return JSON.parse(localStorage.getItem(CHANNEL_KEY)!) || []
 }
 
 /**

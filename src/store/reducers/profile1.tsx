@@ -1,8 +1,8 @@
-import { editUser, user } from '@/types/data'
+import { EditUser, User } from '@/types/data'
 import { ProfileAction, RootAction } from '@/types/store'
 type ProfileProps = {
-  user: user
-  profileEdit: editUser
+  user: User
+  profileEdit: EditUser
 }
 const initialState = {
   user: {},
