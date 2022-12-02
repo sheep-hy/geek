@@ -3,7 +3,7 @@
   :global {
     .tabs {
       height: 100%;
-      // padding: 44px 0 50px 0;
+      padding: 44px 0 50px 0;
       border: 1px solid red;
       .adm-tabs-header {
         position: fixed;
@@ -44,7 +44,7 @@
       width: 86px;
       height: 44px;
       padding: 0 14px;
-      background: #fff;
+      background: rgb(219, 205, 205);
       border-bottom: 1px solid #efefef;
 
       .icon {

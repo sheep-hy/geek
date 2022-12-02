@@ -1,0 +1,24 @@
+.root {
+  height: 100%;
+  overflow-y: scroll;
+  :global {
+    // .am-pull-to-refresh {
+    //   height: 100%;
+    // }
+    .article-item {
+      position: relative;
+      padding: 0 16px;
+      color: #323233;
+      font-size: 14px;
+      background-color: #fff;
+      // background-color: rgb(152, 126, 126);
+    }
+
+    // .list-no-more {
+    //   color: #969799;
+    //   font-size: 14px;
+    //   line-height: 50px;
+    //   text-align: center;
+    // }
+  }
+}

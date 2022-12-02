@@ -14,7 +14,7 @@ function Layout() {
     { path: '/home', icon: 'iconbtn_home', text: '首页' },
     { path: '/home/question', icon: 'iconbtn_qa', text: '问题' },
     { path: '/home/video', icon: 'iconbtn_video', text: '视频' },
-    { path: '/home/profile', icon: 'iconbtn_mine', text: '首页' },
+    { path: '/home/profile', icon: 'iconbtn_mine', text: '我的' },
   ]
   const handleActive = (value: string) => {
     history.push(value)

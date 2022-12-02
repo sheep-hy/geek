@@ -16,8 +16,11 @@ export type LoginAction =
 export type ProfileAction =
   | { type: 'profile/user'; payload: User }
   | { type: 'profile/editUser'; payload: EditUser }
-// 首页相关的
-export type ChannelAction = { type: 'channel/getChannel'; payload: Channel[] }
+// 频道相关的action
+export type ChannelAction =
+  | { type: 'channel/getChannel'; payload: Channel[] }
+  | { type: 'channel/activeChannel'; id: string }
+  | { type: 'channel/saveAllChannels'; payload: Channel[] }
 
 export type RootAction = LoginAction | ProfileAction | ChannelAction
 
