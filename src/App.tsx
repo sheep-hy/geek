@@ -15,6 +15,7 @@ import PrivateRoute from '@/components/PrivateRoute'
 import history from '@/utils/history'
 import Chat from './pages/Profile/chat/Chat'
 import Article from './pages/Article'
+import Search from './pages/Search'
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
             {/* <ProfileEdit /> */}
           </PrivateRoute>
           <PrivateRoute path="/article/:id" component={Article}>
+          </PrivateRoute>
+          <PrivateRoute path="/search" component={Search}>
           </PrivateRoute>
           {/* <Route path="/profile/edit">
             <ProfileEdit />
