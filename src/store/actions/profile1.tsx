@@ -38,3 +38,13 @@ export function getUserProfile(type: string, value: string): RootThunkAction {
     dispatch(editUserInfo())
   }
 }
+// 修改头像updatePhoto
+export function updatePhoto(fd: FormData): RootThunkAction {
+  return async (dispatch) => {
+    // 后端返回的类型 <ApiRsponse<Token>
+    const res = await request.patch<ApiRsponse<EditUser>>('/user/photo',fd)
+    console.log(res,'--------头像')
+    // 修改成功 直接调个人信息接口
+    dispatch(editUserInfo())
+  }
+  }
