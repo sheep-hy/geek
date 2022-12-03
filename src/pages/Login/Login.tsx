@@ -102,10 +102,10 @@ export default function Login() {
           form={form}
           onFinish={onFinish}
           // 为表单添加默认值
-          // initialValues={{
-          //   mobile: '139111111111',
-          //   code: '246810',
-          // }}
+          initialValues={{
+            mobile: '13911111111',
+            code: '246810',
+          }}
         >
           {/* 手机号 */}
           <Form.Item
@@ -158,7 +158,8 @@ export default function Login() {
               //       如果所有表单项都操作过，结果为：true；否则，结果为：false
               // console.log(form.isFieldsTouched(true))
               //  !form.isFieldsTouched(true) 表示第一次渲染组件，并且用户没有操作过表单项，此时，按钮为：禁用
-              const isTouched = form.isFieldsTouched(true)
+              const isTouched = !form.isFieldsTouched(true)
+              console.log(isTouched, 'isTouched')
 
               // 2 form.getFieldsError()
               //  作用：获取所有表单项对应的错误信息
