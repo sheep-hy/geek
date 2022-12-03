@@ -1,14 +1,15 @@
 import Icon from '@/components/Icon'
 import { TabBar, Tabs } from 'antd-mobile'
 import React from 'react'
-import { Route, useHistory } from 'react-router-dom'
+import { Route, useHistory, useLocation } from 'react-router-dom'
 import Home from '../Home'
 import Profile from '../Profile/Profile'
-import Question from '../Question/Question'
+import Question from '../Question'
 import Video from '../Video/Video'
 import style from './index.module.scss'
-
+import classNames from 'classnames'
 function Layout() {
+  const location = useLocation()
   const history = useHistory()
   const tabs = [
     { path: '/home', icon: 'iconbtn_home', text: '首页' },
@@ -20,6 +21,7 @@ function Layout() {
     history.push(value)
   }
 
+  console.log(location.pathname, 111)
   return (
     <div className={style.root}>
       {/*
@@ -31,11 +33,18 @@ function Layout() {
       <Route path="/home/question" component={Question} />
       <Route path="/home/video" component={Video} />
       <Route path="/home/profile" component={Profile} />
-      <TabBar className="tab-bar" onChange={handleActive}>
+      <TabBar
+        className="tab-bar"
+        activeKey={location.pathname}
+        onChange={handleActive}
+      >
         {tabs.map((item) => (
           <TabBar.Item
+            className="tabbar-item"
             key={item.path}
-            icon={<Icon type={item.icon}></Icon>}
+            icon={(active) => (
+              <Icon type={active ? `${item.icon}_sel` : item.icon} />
+            )}
             title={item.text}
           />
         ))}

@@ -39,7 +39,6 @@
     // 3张图片
     .article-content.t3 {
       display: block;
-
       .article-imgs {
         display: flex;
         justify-content: space-between;
@@ -64,12 +63,12 @@
       }
     }
 
-    // .none-mt {
-    //   margin-top: 0;
+    .none-mt {
+      margin-top: 0;
 
-    //   h3 {
-    //     margin-bottom: 4px;
-    //   }
-    // }
+      h3 {
+        margin-bottom: 4px;
+      }
+    }
   }
 }

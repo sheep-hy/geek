@@ -2,6 +2,7 @@
 import { ThunkAction } from 'redux-thunk'
 import store from '@/store'
 import { Token, User, ChannelList, EditUser, Channel } from './data.t'
+import { Article, ArticleDetial } from './data'
 
 // redux 状态的类型
 export type RootState = ReturnType<typeof store.getState>
@@ -21,8 +22,25 @@ export type ChannelAction =
   | { type: 'channel/getChannel'; payload: Channel[] }
   | { type: 'channel/activeChannel'; id: string }
   | { type: 'channel/saveAllChannels'; payload: Channel[] }
+export type ArticleAction =
+  | {
+      type: 'article/getAriticleList'
+      payload: { channelId: string; articles: Article[]; timestamp: string }
+    }
+  | {
+      type: 'article/getNewAriticleList'
+      payload: { channelId: string; articles: Article[]; timestamp: string }
+    }
+  | {
+      type: 'article/getArticleById'
+      payload: ArticleDetial
+    }
 
-export type RootAction = LoginAction | ProfileAction | ChannelAction
+export type RootAction =
+  | LoginAction
+  | ProfileAction
+  | ChannelAction
+  | AriticleAction
 
 // 类型参数1：ReturnType 用于指定函数的返回值类型 void
 // 类型参数2： 指定RootState的类型

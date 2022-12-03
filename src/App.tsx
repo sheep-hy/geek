@@ -14,6 +14,7 @@ import { hasToken } from './utils/storage'
 import PrivateRoute from '@/components/PrivateRoute'
 import history from '@/utils/history'
 import Chat from './pages/Profile/chat/Chat'
+import Article from './pages/Article'
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/chat" component={Chat}>
             {/* <ProfileEdit /> */}
+          </PrivateRoute>
+          <PrivateRoute path="/article/:id" component={Article}>
           </PrivateRoute>
           {/* <Route path="/profile/edit">
             <ProfileEdit />
