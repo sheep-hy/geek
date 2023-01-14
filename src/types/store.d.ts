@@ -2,7 +2,7 @@
 import { ThunkAction } from 'redux-thunk'
 import store from '@/store'
 import { Token, User, ChannelList, EditUser, Channel } from './data.t'
-import { Article, ArticleDetial } from './data'
+import { Article, ArticleDetial, Suggestion } from './data'
 
 // redux 状态的类型
 export type RootState = ReturnType<typeof store.getState>
@@ -36,11 +36,14 @@ export type ArticleAction =
       payload: ArticleDetial
     }
 
+export type SearchAction = { type: 'search/suggestion'; payload: Suggestion }
+
 export type RootAction =
   | LoginAction
   | ProfileAction
   | ChannelAction
   | AriticleAction
+  | SearchAction
 
 // 类型参数1：ReturnType 用于指定函数的返回值类型 void
 // 类型参数2： 指定RootState的类型

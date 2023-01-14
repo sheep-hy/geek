@@ -17,6 +17,7 @@ type Props = {
   onLeftClick?: () => void
 }
 function NavBar({ children, extra, onLeftClick, className }: Props) {
+  // console.log(children,'navbar')
   const history = useHistory()
   const back = () => {
     // 跳回上一页

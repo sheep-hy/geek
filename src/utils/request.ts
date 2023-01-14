@@ -2,12 +2,12 @@
 // 1. 基地址
 // 2. 请求拦截器
 // 3.响应拦截器
-import store from '@/store'
-import { saveToken } from '@/store/actions/login'
 import { Toast } from 'antd-mobile'
+import store from '@/store'
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import history from './history'
 import { getTokenInfo, removeTokenInfo } from './storage'
+import { saveToken } from '@/store/actions/login'
 const baseURL = 'http://geek.itheima.net/v1_0/'
 
 // const history = useHistory() useuseHistory是一个hooks不能在普通函数中使用 中能在函数组件或自定义hooks使用
