@@ -1,13 +1,21 @@
-import { Suggestion } from '@/types/data'
+import { Suggestion, SearchResult,SearchArticle } from '@/types/data'
 import { SearchAction } from '@/types/store'
 
 type state = {
   searchHistory: string[]
   suggestion: Suggestion
+  result: SearchResult
 }
 const initialState: state = {
   searchHistory: ['javascript', 'js'],
   suggestion: [],
+  result:{
+    page: 1,
+    per_page: 10,
+    results: [],
+    total_count: 0,
+  },
+  // result: {} as SearchResult,
 }
 const search = (state = initialState, action: SearchAction) => {
   if (action.type === 'search/suggestion') {
@@ -23,6 +31,8 @@ const search = (state = initialState, action: SearchAction) => {
     }
   } else if (action.type === 'search/history') {
     return { ...state, searchHistory: action.payload }
+  } else if (action.type === 'search/result') {
+    return { ...state, result: action.payload }
   }
   return state
 }

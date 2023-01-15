@@ -7,20 +7,21 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 // import { setMoreAction } from '@/store/actions/home'
 import { useHistory } from 'react-router'
-import { Article } from '@/types/data'
+import { Article, SearchArticle } from '@/types/data'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/zh-cn'
 import Image from '@/components/Image'
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
 type props = {
-  article: Article
+  article: Article | SearchArticle
 }
 // 注意 三张图片和2张图片的格式不一样
 // 0表示无图，1表示单张图片, 3表示3图
 const ArticleItem = ({ article }: props) => {
   const history = useHistory()
   const { type, images = [] } = article.cover
+  
   const dispatch = useDispatch()
   return (
     <div

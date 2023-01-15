@@ -65,3 +65,25 @@ export type ArticleDetial = {
 }
 // 搜索建议
 export type Suggestion = string[]
+// 搜索建议 -结果
+export type SearchArticle = {
+  art_id: string
+  title: string
+  aut_id: string
+  aut_name: string
+  comm_count: number
+  pubdate: string
+  cover: {
+    type: number
+    images: never[]
+  }
+  like_count: number
+  collect_count: number
+  ch_id: number
+}
+export type SearchResult = {
+  page: number
+  per_page: number
+  results: SearchArticle[]
+  total_count: number
+}

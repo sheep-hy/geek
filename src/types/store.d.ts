@@ -2,7 +2,7 @@
 import { ThunkAction } from 'redux-thunk'
 import store from '@/store'
 import { Token, User, ChannelList, EditUser, Channel } from './data.t'
-import { Article, ArticleDetial, Suggestion } from './data'
+import { Article, ArticleDetial, Suggestion, SearchResult } from './data'
 
 // redux 状态的类型
 export type RootState = ReturnType<typeof store.getState>
@@ -36,7 +36,10 @@ export type ArticleAction =
       payload: ArticleDetial
     }
 
-export type SearchAction = { type: 'search/suggestion'; payload: Suggestion }|{ type: 'search/history'; payload: string[] }
+export type SearchAction =
+  | { type: 'search/suggestion'; payload: Suggestion }
+  | { type: 'search/history'; payload: string[] }
+  | { type: 'search/result'; payload: SearchResult }
 
 export type RootAction =
   | LoginAction
