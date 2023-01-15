@@ -36,7 +36,7 @@ export type ArticleAction =
       payload: ArticleDetial
     }
 
-export type SearchAction = { type: 'search/suggestion'; payload: Suggestion }
+export type SearchAction = { type: 'search/suggestion'; payload: Suggestion }|{ type: 'search/history'; payload: string[] }
 
 export type RootAction =
   | LoginAction
