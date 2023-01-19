@@ -25,7 +25,7 @@ export function getSuggests(keyword: string): RootThunkAction {
 export const addHistory = (keyWord: string): RootThunkAction => {
   return (dispatch, getState) => {
     let oldHistory = getState().search.searchHistory
-    oldHistory = oldHistory.filter((i) => i !== keyWord)
+    oldHistory = oldHistory.filter((i:any) => i !== keyWord)
     const newHistory = [keyWord, ...oldHistory]
     dispatch({
       type: 'search/history',

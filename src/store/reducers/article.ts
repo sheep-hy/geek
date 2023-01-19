@@ -43,7 +43,7 @@ const article = (state = initialState, action: ArticleAction) => {
       },
     }
   } else if (action.type === 'article/getArticleById') {
-    console.log(action, 199999999999)
+    // console.log(action, 199999999999)
     return { ...state, detail: action.payload }
   }
   return state

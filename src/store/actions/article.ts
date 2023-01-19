@@ -52,6 +52,9 @@ export function getNewArticleList(
     })
   }
 }
+
+
+// 文章详情
 export function getArticleById(id: string): RootThunkAction {
   return async (dispatch) => {
     // 后端返回的类型 <ApiRsponse<Token>

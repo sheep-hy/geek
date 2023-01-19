@@ -21,6 +21,7 @@ export const setTokenInfo = (tokenInfo: Token) => {
 // 从本地缓存中获取 Token 信息
 export const getTokenInfo = () => {
   return JSON.parse(localStorage.getItem(TOKEN_KEY)!) || {}
+  // return JSON.parse(localStorage.getItem(TOKEN_KEY) || {})
 }
 
 // 删除本地缓存中的 Token 信息

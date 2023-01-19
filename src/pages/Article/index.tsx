@@ -7,7 +7,8 @@ import Icon from '@/components/Icon'
 import CommentItem from './components/CommentItem'
 import CommentFooter from './components/CommentFooter'
 
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
+// 使用dompurify 防止XSS攻击
 import * as DOMPurify from 'dompurify'
 import hljs from 'highlight.js'
 // highlightElement(DOM) 就可以让代码高亮
@@ -35,7 +36,7 @@ const Article = () => {
     const dgHtmlDOM = document.querySelector('.dg-html')
     if (!dgHtmlDOM) return
 
-    // 忽略警告
+    // 忽略警告 忽略未经转义的HTML字符
     hljs.configure({
       ignoreUnescapedHTML: true,
     })
@@ -44,6 +45,7 @@ const Article = () => {
     const codes = dgHtmlDOM.querySelectorAll<HTMLElement>('pre code')
     if (codes.length > 0) {
       codes.forEach((code) => {
+        // 让code进行高亮
         hljs.highlightElement(code)
       })
       return
@@ -56,10 +58,44 @@ const Article = () => {
     })
   }, [detail])
 
+  const [showAuthor, setShowAuthor] = useState(false)
+  // 监听 作者dom 距离顶部的距离
+  // <50px 设置为setShowAuthor(true)
+  // 1. 添加滚动条事件监听
+  // 2. 在回调中， 获取作者dom 距离顶部的距离 判断是否小于50px
+  const refAuthor = useRef<HTMLDivElement>(null)
+  const refWrapper = useRef<HTMLDivElement>(null)
+  //.有第二个参数但数组为空，则副作用仅在组件挂载和卸载时执行。useEffect( ()=>{doSomeThing}, [])
+  useEffect(() => {
+    const onScroll = () => {
+      const rect = refAuthor.current?.getBoundingClientRect()
+      console.log(rect, 'scroll')
+      if (rect!.top < 10) {
+        setShowAuthor(true)
+      } else {
+        setShowAuthor(false)
+      }
+    }
+    // 找到wrapper元素，添加Scroll事件监听
+    refWrapper.current?.addEventListener('scroll', onScroll)
+    return () => {
+      // 找到wrapper元素，移除Scroll事件监听
+      refWrapper.current?.removeEventListener('scroll', onScroll)
+    }
+  }, [])
   const renderArticle = () => {
     // 文章详情
     return (
-      <div className="wrapper">
+      <div ref={refWrapper} className="wrapper">
+        {/* onScroll={() => {
+          const rect = refAuthor.current?.getBoundingClientRect()
+          console.log(rect, 'scroll')
+          if (rect!.top < 10) {
+            setShowAuthor(true)
+          } else {
+            setShowAuthor(false)
+          }
+        }} */}
         <div className="article-wrapper">
           <div className="header">
             <h1 className="title">{detail.title}</h1>
@@ -69,7 +105,7 @@ const Article = () => {
               <span>{detail.read_count} 阅读</span>
               <span>{detail.comm_count} 评论</span>
             </div>
-            <div className="author">
+            <div className="author" ref={refAuthor}>
               <img src={detail.aut_photo || avatar} alt="" />
               <span className="name">{detail.aut_name}</span>
               <span
@@ -83,29 +119,13 @@ const Article = () => {
             </div>
           </div>
           <div className="content">
+            {/* // 使用这个 有风险 xss攻击 */}
             <div
               className="content-html dg-html"
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(detail.content),
               }}
             ></div>
-
-            {/* dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(detail.content),
-              }} */}
-            {/* dangerouslySetInnerHTML={{
-                // 使用 DOMPurify 包来对 HTML 格式字符串进行“消毒”，消毒后就没有风险了
-                __html: DOMPurify.sanitize(detail.content),
-              }} */}
-            {/* // 注意： HTML5 中明确规定，不执行由 innerHTML 设置的 script 标签
-                // __html: `<script>alert('你能看到我吗？')</script>`,
-
-                // 但，下面示例中的代码就会执行，如果不处理的话，就可能让我们的网站遭受 XSS 攻击
-                // __html: `<img src="x" onerror="alert('你能看到我吗？')" />`,
-                // __html: DOMPurify.sanitize(
-                //   `<img src="x" onerror="alert(localStorage.getItem('geek-h5-1478'))" />`
-                // ), */}
-
             <div className="date">发布文章时间：{detail.pubdate}</div>
           </div>
         </div>
@@ -125,7 +145,6 @@ const Article = () => {
       </div>
     )
   }
-
   return (
     <div className={styles.root}>
       <div className="root-wrapper">
@@ -137,7 +156,7 @@ const Article = () => {
             </span>
           }
         >
-          {true && (
+          {showAuthor && (
             <div className="nav-author">
               <img src={detail.aut_photo || avatar} alt="" />
               <span className="name">{detail.aut_name}</span>

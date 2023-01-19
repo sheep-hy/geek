@@ -22,6 +22,7 @@
     .am-icon-ellipsis {
       color: #323233;
     }
+    // 导航区域
 
     .nav-author {
       display: flex;
@@ -47,12 +48,13 @@
         color: #ccc;
       }
     }
-
+    // 主页内容区域
     .wrapper {
       flex: 1;
       padding-bottom: 50px;
       overflow-y: auto;
       background-color: #f7f8fa;
+      border: 1px solid rgb(0, 255, 42);
     }
 
     .article-wrapper {
@@ -114,7 +116,7 @@
         .follow {
           position: absolute;
           right: 0;
-          height: 29px;
+          // height: 29px;
           padding: 8px 18px;
           border-radius: 15px;
           line-height: 1;
@@ -137,7 +139,7 @@
       overflow: hidden;
       color: #595769;
       font-size: 16px;
-      border: 1px solid rgb(0, 255, 42);
+      // border: 1px solid rgb(0, 255, 42);
 
       .content-html {
         min-height: 200px;
@@ -171,7 +173,7 @@
         color: #a5a6ab;
       }
     }
-
+   // 评论
     .comment {
       margin-top: 12px;
       background-color: #fff;

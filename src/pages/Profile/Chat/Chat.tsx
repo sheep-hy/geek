@@ -39,6 +39,10 @@ const Chat = () => {
       console.log('服务器的数据',obj)
       setList((list)=>[...list, { type: 'robot', text: obj.msg }])
     })
+    return ()=>{
+      // 端开连接
+      clientRef.current?.close()
+    }
   }, [])
   // 给机器人发送消息
   const sendMessage = () => {
@@ -50,6 +54,7 @@ const Chat = () => {
   const refList = useRef<HTMLDivElement>(null)
   useEffect(()=>{
     // dom操作
+    // 滚动底部
     if(refList.current){
       refList.current.scrollTop= refList.current?.scrollHeight
     }
